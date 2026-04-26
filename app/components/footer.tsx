@@ -9,23 +9,23 @@ const Footer: React.FC = () => {
 
     return (
         <footer className="relative mt-20 border-t border-white/10 bg-black/40 backdrop-blur-md py-12 px-4 overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#CCFF00]/5 blur-[100px] rounded-full pointer-events-none" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
 
             <div className="max-w-6xl mx-auto relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end">
                     <div className="space-y-6">
                         <div className="space-y-2">
                             <h2 className="text-4xl font-black italic text-white uppercase tracking-tighter">
-                                Let's <span className="text-[#CCFF00]">Connect</span>
+                                About <span className="text-primary">me</span>
                             </h2>
                             <p className="text-white/40 text-sm font-medium max-w-xs uppercase tracking-tight">
-                                Ready for new commissions and hollow investigations.
+                                Computer Science graduate with experience as a Junior Full-Stack Developer
                             </p>
                         </div>
 
                         <div className="flex gap-1">
                             {[1, 2, 3].map(i => (
-                                <div key={i} className="w-8 h-1 bg-[#CCFF00]" style={{ opacity: 1 - (i - 1) * 0.3 }} />
+                                <div key={i} className="w-8 h-1 bg-primary" style={{ opacity: 1 - (i - 1) * 0.3 }} />
                             ))}
                         </div>
                     </div>
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-8 gap-x-32">
                         {contactInfo.map((info) => (
                             <div key={info.label} className="group space-y-1">
-                                <span className="text-[10px] font-black uppercase tracking-widest text-[#CCFF00]/50 group-hover:text-[#CCFF00] transition-colors">
+                                <span className="text-[10px] font-black uppercase tracking-widest text-primary/50 group-hover:text-primary transition-colors">
                                     {info.label}
                                 </span>
                                 <a

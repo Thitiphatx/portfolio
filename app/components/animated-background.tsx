@@ -22,7 +22,7 @@ const SlidingText = ({ text, duration, reverse = false }: { text: string, durati
 
 const AnimatedBackground = () => {
     return (
-        <div className='fixed inset-0 -z-50 overflow-hidden bg-[#050505] select-none pointer-events-none'>
+        <div className='fixed inset-0 -z-1 overflow-hidden bg-[#050505] select-none pointer-events-none'>
             <div className="absolute inset-0 opacity-[0.1] flex flex-col justify-around -rotate-12 scale-150">
                 <SlidingText 
                     text="Portfolio •" 

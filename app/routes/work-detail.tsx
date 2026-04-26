@@ -4,7 +4,7 @@ import Button from "~/components/button";
 import Card from "~/components/card";
 import type { Route } from "./+types/work-detail";
 
-const workFiles = import.meta.glob('../data/works/*.tsx', { eager: true });
+const workFiles = import.meta.glob('../data/works/*/content.tsx', { eager: true });
 
 interface WorkModule {
     metadata: {
@@ -21,7 +21,7 @@ interface WorkModule {
 
 export async function clientLoader({ params }: Route.ClientLoaderArgs) {
     const { slug } = params;
-    const path = `../data/works/${slug}.tsx`;
+    const path = `../data/works/${slug}/content.tsx`;
     const module = workFiles[path] as WorkModule | undefined;
 
     if (!module) {
@@ -51,14 +51,17 @@ export function meta({ data }: Route.MetaArgs) {
 }
 
 export default function WorkPage() {
-    const { metadata, slug } = useLoaderData<typeof clientLoader>();
+    const data = useLoaderData<typeof clientLoader>();
+    if (!data) return null;
 
+    const { metadata, slug } = data;
+    
     // Get the component for rendering
-    const path = `../data/works/${slug}.tsx`;
+    const path = `../data/works/${slug}/content.tsx`;
     const Content = (workFiles[path] as WorkModule).default;
 
     return (
-        <div className="max-w-4xl mx-auto py-12 px-4 space-y-12">
+        <div className="py-12 px-4 space-y-12">
             <Link to="/" className="inline-block">
                 <Button className="py-1 px-4 text-xs opacity-50 hover:opacity-100">← Back</Button>
             </Link>
@@ -73,7 +76,7 @@ export default function WorkPage() {
                 
                 <div className="flex flex-wrap gap-2">
                     {metadata.tags.map(tag => (
-                        <span key={tag} className="text-[#CCFF00] text-xs font-black uppercase italic border border-[#CCFF00]/30 px-2 py-0.5 rounded">
+                        <span key={tag} className="text-primary text-xs font-black uppercase italic border border-primary/30 px-2 py-0.5 rounded">
                             {tag}
                         </span>
                     ))}
@@ -81,7 +84,7 @@ export default function WorkPage() {
             </header>
 
             {metadata.previewImage && (
-                <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10">
+                <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
                     <img src={metadata.previewImage} alt={metadata.title} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
                     <div className="absolute bottom-6 left-6 right-6">
@@ -92,13 +95,17 @@ export default function WorkPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                 <div className="lg:col-span-2 space-y-8">
-                    <Card className="bg-transparent! border-none p-0 overflow-visible">
+                    <article className="prose prose-invert max-w-none 
+                        prose-img:rounded-xl prose-img:border prose-img:border-white/10 prose-img:shadow-lg
+                        prose-headings:text-[var(--color-primary)] prose-headings:uppercase prose-headings:italic prose-headings:font-black
+                        prose-strong:text-[var(--color-primary)]
+                    ">
                          <Content />
-                    </Card>
+                    </article>
                 </div>
 
                 <aside className="space-y-6">
-                    <Card header="Deployment" className="sticky top-24">
+                    <Card header={metadata.demoUrl ? "Deployment" : "Create Date"} className="sticky top-24">
                         <div className="space-y-4">
                             <div className="space-y-1">
                                 <span className="text-[10px] text-white/40 uppercase font-black">Published</span>

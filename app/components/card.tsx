@@ -16,7 +16,7 @@ const Card = ({ header, image, children, footer, actions, className = "" }: Card
             {header && (
                 <div className="relative z-10 px-6 py-4 border-b border-white/5 bg-white/5">
                     <div className="flex items-center justify-between">
-                        <div className="text-sm font-black uppercase tracking-widest text-[#CCFF00] italic">
+                        <div className="text-sm font-black uppercase tracking-widest text-[var(--color-primary)] italic">
                             {header}
                         </div>
                     </div>
@@ -70,7 +70,7 @@ const Card = ({ header, image, children, footer, actions, className = "" }: Card
             )}
 
             {/* Background Glow */}
-            <div className="absolute inset-0 pointer-events-none bg-radial-[circle_at_50%_0%,rgba(204,255,0,0.05)_0%,transparent_70%]" />
+            <div className="absolute inset-0 pointer-events-none bg-radial-[circle_at_50%_0%,var(--color-primary-dim,rgba(204,255,0,0.05))_0%,transparent_70%]" />
         </div>
     )
 }
