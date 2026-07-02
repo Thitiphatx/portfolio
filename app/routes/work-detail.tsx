@@ -4,18 +4,12 @@ import Button from "~/components/button";
 import Card from "~/components/card";
 import type { Route } from "./+types/work-detail";
 
+import type { WorkMetadata } from "~/types/work";
+
 const workFiles = import.meta.glob('../data/works/*/content.tsx', { eager: true });
 
 interface WorkModule {
-    metadata: {
-        title: string;
-        tags: string[];
-        description: string;
-        shortDescription?: string;
-        previewImage?: string;
-        demoUrl?: string;
-        date: string;
-    };
+    metadata: WorkMetadata;
     default: React.ComponentType;
 }
 
@@ -114,6 +108,11 @@ export default function WorkPage() {
                             {metadata.demoUrl && (
                                 <a href={metadata.demoUrl} target="_blank" rel="noopener noreferrer" className="block w-full">
                                     <Button className="w-full">Live Demo</Button>
+                                </a>
+                            )}
+                            {metadata.repoUrl && (
+                                <a href={metadata.repoUrl} target="_blank" rel="noopener noreferrer" className="block w-full">
+                                    <Button className="w-full border-white/10 hover:border-white/30 hover:bg-white/5">View Repository</Button>
                                 </a>
                             )}
                         </div>
